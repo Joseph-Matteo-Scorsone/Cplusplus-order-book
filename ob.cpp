@@ -7,7 +7,7 @@
 class OrderBook {
 public:
     // Enumerations for order types and sides
-    enum class OrderType { Market, Limit, Stop, GoodTillCanceled, FillOrKill_Limit, FillOrKill_Market };
+    enum class OrderType { Market, Limit, Stop, GoodTillCanceled, FillOrKill_Limit };
     enum class Side { Buy, Sell };
 
     // Order class representing individual orders
@@ -86,7 +86,7 @@ public:
 
         // Handle Fill-Or-Kill orders separately
         for (auto it = orders.begin(); it != orders.end();) {
-            if (it->getType() == OrderType::FillOrKill_Limit || it->getType() == OrderType::FillOrKill_Market) {
+            if (it->getType() == OrderType::FillOrKill_Limit) {
                 auto matchIt = findMatch(it, it->getQuantity(), true); // Ensure full match
                 if (matchIt != orders.end() && matchIt->getQuantity() >= it->getQuantity()) {
                     executeOrder(it, matchIt);
